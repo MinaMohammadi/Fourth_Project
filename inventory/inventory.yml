@@ -1,0 +1,7 @@
+---
+master_node01:
+  hosts: master01 
+worker01:
+  hosts: slave01
+worker02:
+  hosts: slave02
