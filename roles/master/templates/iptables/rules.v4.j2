@@ -1,6 +1,7 @@
 # FILTER CHAIN
 *filter
+-A FORWARD -i eth1 -o eth0 -p tcp -m tcp --dport 80 --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j ACCEPT
 -A FORWARD -i eth1 -o eth0 -j ACCEPT
 -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
--A FORWARD -i eth1 -o eth0 -p tcp -m tcp --dport 80 --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j ACCEPT
+-A FORWARD -s {{ master01_ip }}/32 -d {{ node01_ip }}/32 -j ACCEPT
 COMMIT
