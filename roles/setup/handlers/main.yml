@@ -1,0 +1,13 @@
+---
+- name: restart resolvconf
+  service:
+    name: resolvconf
+    state: restarted
+
+- name: Enable noswap service
+  systemd:
+    name: noswap
+    state: started
+    enabled: true
+    daemon_reload: true
+
