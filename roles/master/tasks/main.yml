@@ -28,3 +28,9 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Initialize kubernetes cluster
+  import_tasks: kubeadm-init.yml
+
+- name: Join to kubernetes cluster
+  import_tasks: kubeadm-join.yml
