@@ -1,0 +1,18 @@
+---
+- name: Get the token for joining the workers nodes
+  become: true
+  become_user: ubuntu
+  shell: 
+    kubeadm token create  --print-join-command
+  register: kubernetes_worker_join
+
+- name: Show logs
+  debug:
+    msg: "{{ kubernetes_worker_join.stdout }}"
+
+- name: Copy join command to local file
+  become: true
+  local_action: copy 
+    content="{{ kubernetes_worker_join.stdout_lines[0] }}" 
+    dest="/tmp/kubernetes_worker_join" 
+    mode=0777

@@ -1,0 +1,19 @@
+---
+- name: Create iptables directory
+  file:
+    path: "/etc/iptables"
+    state: "directory"
+    owner: root
+    group: root
+    mode: 0744
+
+- name: Copy iptables template rules to /etc/iptables
+  template:
+    src: iptables/rules.v4.j2
+    dest: /etc/iptables/rules.v4
+  notify: restore iptables
+
+- name: Install iptables-persistent package
+  apt:
+    name: iptables-persistent
+    update_cache: yes

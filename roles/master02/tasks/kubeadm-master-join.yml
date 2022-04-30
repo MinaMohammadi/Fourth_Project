@@ -1,0 +1,12 @@
+---
+- name: Copy join command from Ansiblehost to the worker nodes
+  become: true
+  copy:
+    src: /tmp/kubernetes_master_join
+    dest: /tmp/kubernetes_master_join
+    mode: 0777
+
+- name: Join the Worker nodes to the cluster
+  become: true
+  command: sh /tmp/kubernetes_master_join
+  register: joined_or_not
