@@ -1,0 +1,16 @@
+---
+- name: haproxy Install Required Packages
+  apt:
+    name:
+      - haproxy
+    state: latest
+    update_cache: yes
+
+- name: Copy haproxy Config Files
+  template:
+    src: haproxy-config/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 700
+  notify: reload nginx
