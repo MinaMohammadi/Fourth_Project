@@ -1,9 +1,11 @@
 ---
 # ip address
-master_public_ip: 185.235.40.73
-master01_ip: 192.168.100.87
-node01_ip: 192.168.100.59
-node02_ip: 192.168.100.205
-master02_ip: 192.168.100.250
+master_public_ip: 185.235.41.20
+master01_ip: 192.168.100.138
+master02_ip: 192.168.100.94
+node01_ip: 192.168.100.113
+node02_ip: 192.168.100.225
+loadbalancer: 192.168.100.168
+
 
 

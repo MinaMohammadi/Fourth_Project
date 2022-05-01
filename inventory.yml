@@ -1,9 +1,11 @@
 ---
 master_node01:
-  hosts: master01 
+  hosts: master01
+master_node02:
+  hosts: master02 
 worker01:
   hosts: slave01
 worker02:
   hosts: slave02
-master_node02:
-  hosts: master02
+lb_ha:
+  hosts: lb

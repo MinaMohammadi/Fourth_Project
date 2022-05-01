@@ -52,5 +52,6 @@
     force: yes
 
 - name: Sudo apt-mark
+  become: true
   shell:
-    "sudo apt-mark hold kubelet kubeadm kubectl"
+    "apt-mark hold kubelet kubeadm kubectl"

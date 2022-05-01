@@ -1,6 +1,9 @@
 ---
 - name: Initialize the cluster
-  shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+  shell:
+    kubeadm init --control-plane-endpoint="192.168.100.168:6443" --upload-certs \
+    --apiserver-advertise-address=192.168.100.138 \
+    --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
   args:
     chdir: $HOME
     creates: cluster_initialized.txt

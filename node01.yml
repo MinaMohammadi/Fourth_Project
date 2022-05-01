@@ -1,5 +1,0 @@
----
-- hosts: worker01  
-  become: True
-  roles:
-    - node
