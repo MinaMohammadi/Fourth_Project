@@ -121,5 +121,12 @@ kubectl get cm
 kafka-topics.sh --create --zookeeper 10.244.2.28:2181 --replication-factor 1 --partitions 1 --topic output
 bin/kafka-topics.sh --list --zookeeper 10.244.2.28:2181
 ```
+# join nodes to cluster
+Kubeadm HA | Adding additional master nodes to the cluster
+```
+sudo kubeadm init phase upload-certs --upload-certs
+sudo kubeadm token create --certificate-key 84e102e981f36b68527f7e6b7af628666531aacdbb38c1234e7b85e817b7a6e4 --print-join-command
+```
+
 kubectl create deployment nginx --image=nginx
 kubectl create service nodeport nginx --tcp=80:80

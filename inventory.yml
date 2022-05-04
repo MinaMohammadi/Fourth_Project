@@ -9,3 +9,5 @@ worker02:
   hosts: slave02
 lb_ha:
   hosts: lb
+monitoring:
+  hosts: monitor
