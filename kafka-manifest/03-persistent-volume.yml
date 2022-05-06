@@ -14,7 +14,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: /var/lib/zookeeper/data
+    path: /home/ubuntu/data/zookeeper/
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -39,7 +39,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   hostPath:
-    path: /var/lib/kafka/data
+    path: /home/ubuntu/data/kafka/
   nodeAffinity:
     required:
       nodeSelectorTerms:

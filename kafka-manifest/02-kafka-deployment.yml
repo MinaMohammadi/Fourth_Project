@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: kafka-broker
-  name: kafka-broker
+  name: kafka
   namespace: kafka
+  labels:
+    app: kafka-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-broker
+      app: kafka-server
   template:
     metadata:
       labels:
-        app: kafka-broker
+        app: kafka-server
     spec:
-      hostname: kafka-broker
+      hostname: kafka-server
       containers:
       - env:
         - name: KAFKA_BROKER_ID
@@ -36,21 +36,23 @@ spec:
         - containerPort: 9092
         volumeMounts:
             - name: kafka-data
-              mountPath: /var/lib/kafka/data
+              mountPath: /home/ubuntu/data/kafka/
       volumes:
         - name: kafka-data
           persistentVolumeClaim:
-            claimName: task-pvc-kafka
+            claimName: pvc-kafka
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: kafka-broker
   name: kafka-service
   namespace: kafka
+  labels:
+    app: kafka
 spec:
+  selector:
+    app: kafka
   ports:
   - port: 9092
-  selector:
-    app: kafka-broker
+    targetPort: 9092 
+    nodePort: 39092

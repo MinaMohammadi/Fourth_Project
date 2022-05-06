@@ -127,6 +127,27 @@ Kubeadm HA | Adding additional master nodes to the cluster
 sudo kubeadm init phase upload-certs --upload-certs
 sudo kubeadm token create --certificate-key 84e102e981f36b68527f7e6b7af628666531aacdbb38c1234e7b85e817b7a6e4 --print-join-command
 ```
+# setup kubernetes dashboard
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+kubectl get nameapasce
+kubectl get pods -n kubernetes-dashboard
+
+# nodeport or port-forwarding ?
+portforwarding:
+- find actual port of the service
+> kubectl -n kubernetes-dashboard  describe svc kubernetes-dashboard
+> kubectl -n kubernetes-dashboard port-forward pod-name 8000:8443
+nodeport:
+> kubectl -n kubernetes-dashboard edit svc kubernetes-dashboard 
+- type: NodePort and nodePort: 32323
+
+Token:
+kubectl get sa -n kubernetes-dashboard
+kubectl describe sa kubernetes-dashboard -n kubernetes-dashboard
+kubectl describe secret kubernetes-dashboard-token-ktghf -n kubernetes-dashboard
+```
+
 
 kubectl create deployment nginx --image=nginx
 kubectl create service nodeport nginx --tcp=80:80

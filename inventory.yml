@@ -7,7 +7,7 @@ worker01:
   hosts: slave01
 worker02:
   hosts: slave02
+worker03:
+  hosts: slave03
 lb_ha:
   hosts: lb
-monitoring:
-  hosts: monitor
