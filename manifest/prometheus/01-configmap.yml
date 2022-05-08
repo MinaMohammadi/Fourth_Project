@@ -195,3 +195,34 @@ data:
         tls_config:
           ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
           insecure_skip_verify: true
+
+      #--------------------------------------------
+      # Scrape static config for node-exporter.
+      #--------------------------------------------
+      - job_name: 'node-exporter'
+
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: 'node-exporter'
+          action: keep
+
+      #--------------------------------------------
+      # Scrape static config for kube-state-metrics.
+      #--------------------------------------------
+      - job_name: kube-state-metrics
+
+        scheme: http
+        kubernetes_sd_configs:
+        - role: service
+        relabel_configs:
+        - separator: ;
+          regex: __meta_kubernetes_service_label_(.+)
+          replacement: $1
+          action: labelmap
+        - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_label_k8s_app]
+          separator: ;
+          regex: ${NAMESPACE};kube-state-metrics
+          replacement: $1
+          action: keep

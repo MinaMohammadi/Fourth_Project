@@ -64,5 +64,3 @@ data:
         path: /var/lib/grafana/dashboards
       orgId: 1
       type: file
-
-

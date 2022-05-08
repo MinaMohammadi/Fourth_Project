@@ -33,6 +33,7 @@ spec:
         ports:
         - name: grafana
           containerPort: 3000
+          protocol: TCP
         resources:
           limits:
             memory: "1Gi"
@@ -54,8 +55,25 @@ spec:
             mountPath: /etc/grafana/provisioning/dashboards/
             # subPath: dashboardproviders.yml
           
+          - name: grafana-dashboards
+            mountPath: "/var/lib/grafana/dashboards"
+          
           - name: data
             mountPath: /home/ubuntu/data/grafana/
+
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 60
+          timeoutSeconds: 30
+          failureThreshold: 10
+          periodSeconds: 10  
+
       volumes:
         - name: grafana-ini
           configMap:
@@ -72,6 +90,11 @@ spec:
             defaultMode: 420
             name: grafana-dashboard-providers
         
+        - name: grafana-dashboards
+          configMap:
+            defaultMode: 420
+            name: grafana-dashboards
+
         - name: data
           persistentVolumeClaim:
             claimName: pvc-grafana

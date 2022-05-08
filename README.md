@@ -118,8 +118,8 @@ kubectl get cm
 ```
 # kafka-topics
 ```
-kafka-topics.sh --create --zookeeper 10.244.2.28:2181 --replication-factor 1 --partitions 1 --topic output
-bin/kafka-topics.sh --list --zookeeper 10.244.2.28:2181
+kafka-topics.sh --create --zookeeper 10.106.9.145:2181 --replication-factor 1 --partitions 1 --topic output
+bin/kafka-topics.sh --list --zookeeper 10.106.9.145:2181
 ```
 # join nodes to cluster
 Kubeadm HA | Adding additional master nodes to the cluster
@@ -151,3 +151,6 @@ kubectl describe secret kubernetes-dashboard-token-ktghf -n kubernetes-dashboard
 
 kubectl create deployment nginx --image=nginx
 kubectl create service nodeport nginx --tcp=80:80
+
+kubectl get endpoints
+kubectl get daemonset -A
