@@ -1,0 +1,8 @@
+---
+work_dir: webserver
+
+domain_name: "{{ bukhara_domain_name }}"
+
+kubernetes_addr: "http://{{ elk_private_ip }}:5601/"
+grafana_addr: "http://{{ monitor_private_ip }}:3000/"
+prometheus_addr: "http://{{ monitor_private_ip }}:9090/"

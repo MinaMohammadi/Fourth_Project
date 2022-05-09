@@ -1,4 +1,8 @@
 ---
+webserver:
+  hosts: 94.101.187.2
+lb_ha:
+  hosts: lb
 master_node01:
   hosts: master01
 master_node02:
@@ -9,5 +13,3 @@ worker02:
   hosts: slave02
 worker03:
   hosts: slave03
-lb_ha:
-  hosts: lb

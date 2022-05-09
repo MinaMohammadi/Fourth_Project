@@ -1,6 +1,0 @@
----
-- hosts: lb_ha
-  become: True
-  roles:
-    - workers
-    - haproxy
