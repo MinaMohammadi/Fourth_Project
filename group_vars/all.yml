@@ -2,9 +2,11 @@
 # ip address
 bukhara_domain_name: "bukhara-chkh.ir"
 
-master01_ip: 192.168.100.166
-master02_ip: 192.168.100.111
+master01_ip: 192.168.100.10
+master02_ip: 192.168.100.136
 node01_ip: 192.168.100.215
-node02_ip: 192.168.100.127
-node03_ip: 192.168.100.13
-loadbalancer: 192.168.100.81
+node02_ip: 192.168.100.109
+node03_ip: 192.168.100.82
+loadbalancer: 192.168.100.253
+
+docker_registry: 194.5.206.22

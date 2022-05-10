@@ -1,12 +1,9 @@
 ---
-- name: Netplan congifuration
-  import_tasks: netplan.yml
-  
 - name: Iptables Hardening
   import_tasks: iptables.yml
-
-# - name: Preinstallation
-#   import_tasks: preinstallation.yml
   
-# - name: Install dependencies
-#   import_tasks: kube-dependencies.yml
+- name: Install dependencies
+  import_tasks: kube-dependencies.yml
+
+- name: Preinstallation
+  import_tasks: preinstallation.yml

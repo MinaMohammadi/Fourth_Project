@@ -15,9 +15,6 @@
       nameserver 4.2.2.4
   notify: restart resolvconf
 
-- name: Netplan congifuration
-  import_tasks: netplan.yml
-
 - name: Iptables Hardening
   import_tasks: iptables.yml
 

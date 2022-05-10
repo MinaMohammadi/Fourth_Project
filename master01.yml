@@ -2,4 +2,4 @@
 - hosts: master01
   become: True
   roles:
-    - setup
+    - master01

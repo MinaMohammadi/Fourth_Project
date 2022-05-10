@@ -1,4 +1,23 @@
 ---
+- name: Copy netplan Config File
+  template:
+    src: netplan/50-cloud-init.yaml.j2
+    dest: /etc/netplan/50-cloud-init.yaml
+    owner: root
+    group: root
+    mode: 0744
+  notify: apply netplan
+
+- name: Force for apply netplan
+  meta: flush_handlers
+  
+- name: Set ip_forward
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: yes
+    reload: yes
+    
 - name: Install iptables-persistent package
   apt:
     name: iptables-persistent
@@ -9,3 +28,4 @@
     src: iptables/rules.v4.j2
     dest: /etc/iptables/rules.v4
   notify: restore iptables
+
