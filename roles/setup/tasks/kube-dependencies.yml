@@ -4,7 +4,7 @@
     path=/etc/docker 
     state=directory
 
-- name: Changing Docker to systemd driver
+- name: Changing Docker to docker registry
   copy:
     dest: "/etc/docker/daemon.json"
     content: |
@@ -14,25 +14,33 @@
 
 - name: Install Docker
   apt:
-    name: docker.io
+    name: 
+      - docker.io
+      - apt-transport-https
     state: present
     update_cache: true
-
-- name: Install APT Transport HTTPS
-  apt:
-    name: apt-transport-https
-    state: present
 
 - name: Add Kubernetes apt-key
   apt_key:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     state: present
 
-- name: Add Kubernetes'apt repository
-  apt_repository:
-    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-    state: present
-    filename: 'kubernetes'
+- name: Create kubernetes repo file
+  file:
+    path: "/etc/apt/sources.list.d/kubernetes.list"
+    state: "touch"
+
+- name: Add K8s Source
+  blockinfile:
+    path: "/etc/apt/sources.list.d/kubernetes.list"
+    block: |
+          deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+# - name: Add Kubernetes'apt repository
+#   apt_repository:
+#     repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+#     state: present
+#     filename: 'kubernetes'
 
 - name: install kubelet
   apt:

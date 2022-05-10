@@ -2,9 +2,9 @@
 - name: Initialize the cluster
   become: true
   shell: 
-      kubeadm init --control-plane-endpoint="192.168.100.253:6443" --upload-certs \
-      --apiserver-advertise-address=192.168.100.10 \
-      --pod-network-cidr=10.244.0.0/16
+      kubeadm init --control-plane-endpoint="192.168.100.253:6443" --upload-certs \ 
+      --apiserver-advertise-address=192.168.100.137 \
+      --pod-network-cidr=10.244.0.0/16 
   register: init_output
   args:
     chdir: $HOME

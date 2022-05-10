@@ -1,9 +1,9 @@
 ---
-- name: Iptables Hardening
-  import_tasks: iptables.yml
+# - name: Iptables Hardening
+#   import_tasks: iptables.yml
   
 - name: Install dependencies
   import_tasks: kube-dependencies.yml
 
-- name: Preinstallation
-  import_tasks: preinstallation.yml
+# - name: Preinstallation
+#   import_tasks: preinstallation.yml

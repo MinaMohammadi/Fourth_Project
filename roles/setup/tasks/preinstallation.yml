@@ -59,3 +59,20 @@
 - name: Apply new settings
   become: yes
   command: sysctl --system
+
+- name: Install containerd
+  apt:
+    name: 
+      - containerd
+    state: present
+
+- name: Create containerd config directory
+  file: 
+    path=/etc/containerd 
+    state=directory
+
+- name: Install containerd
+  become: yes
+  shell: |
+          containerd config default | sudo tee /etc/containerd/config.toml
+          systemctl restart containerd
