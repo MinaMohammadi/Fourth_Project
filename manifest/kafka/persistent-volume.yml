@@ -3,16 +3,12 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-zookeeper
-  labels:
-    type: local
 spec:
   capacity:
     storage: 5Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
   hostPath:
     path: /home/ubuntu/data/zookeeper/
   nodeAffinity:
@@ -22,22 +18,18 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - node01
+          - worker-01
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: pv-kafka
-  labels:
-    type: local
 spec:
   capacity:
     storage: 5Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
   hostPath:
     path: /home/ubuntu/data/kafka/
   nodeAffinity:
@@ -47,4 +39,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - node02
+          - worker-01

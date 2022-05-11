@@ -5,21 +5,32 @@ metadata:
   name: zookeeper
   namespace: kafka
   labels:
-    app: zookeeper-server
+    app: zookeeper
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: zookeeper-server
+      app: zookeeper
   template:
     metadata:
       labels:
-        app: zookeeper-server
+        app: zookeeper
     spec:
       containers:
         - image: zookeeper:3.8
-          imagePullPolicy: IfNotPresent
           name: zookeeper
+          imagePullPolicy: IfNotPresent
+      - env:
+          - name: ZOOKEEPER_CLIENT_PORT
+            value: "2181"
+          - name: ZOOKEEPER_DATA_DIR
+            value: "/var/lib/zookeeper/data"
+          - name: ZOOKEEPER_LOG_DIR
+             value: "/var/lib/zookeeper/log"
+          - name: ZOOKEEPER_SERVER_ID
+            value: "1"
+      hostname: zookeeper
+      restartPolicy: Always
           ports:
           - containerPort: 2181
           volumeMounts:
@@ -29,6 +40,7 @@ spec:
         - name: zookeeper-data
           persistentVolumeClaim:
             claimName: pvc-zookeeper
+
 ---
 apiVersion: v1
 kind: Service
