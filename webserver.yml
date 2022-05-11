@@ -3,4 +3,3 @@
   become: True
   roles:
     - webserver
-    # - haproxy

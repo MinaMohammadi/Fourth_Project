@@ -1,6 +1,6 @@
 ---
 webserver:
-  hosts: 94.101.184.214
+  hosts: 94.101.185.219
 lb_ha:
   hosts: lb
 master_node01:

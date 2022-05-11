@@ -2,8 +2,7 @@
 - name: Initialize the cluster
   become: true
   shell: 
-      kubeadm init --control-plane-endpoint="192.168.100.105:6443" --upload-certs \ 
-      --apiserver-advertise-address=192.168.100.129 \
+      kubeadm init --control-plane-endpoint="{{ loadbalancer }}:6443" --upload-certs \ 
       --pod-network-cidr=10.244.0.0/16 
   register: init_output
   args:
@@ -31,7 +30,7 @@
 - name: Install Pod network
   become: true
   become_user: ubuntu
-  shell: kubectl apply -f "{{ kubernetes_flannel_url }}" >> pod_network_setup.txt
+  shell: kubectl apply -f "{{ kubernetes_flannel_url }}"
   args:
     chdir: $HOME
     creates: pod_network_setup.txt

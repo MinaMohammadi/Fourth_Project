@@ -25,23 +25,23 @@
     sysctl_set: yes
     reload: yes
 
-# - name: Create containerd config file
-#   file:
-#     path: "/etc/modules-load.d/containerd.conf"
-#     state: "touch"
+- name: Create containerd config file
+  file:
+    path: "/etc/modules-load.d/containerd.conf"
+    state: "touch"
 
-# - name: Add conf for containerd
-#   blockinfile:
-#     path: "/etc/modules-load.d/containerd.conf"
-#     block: |
-#             overlay
-#             br_netfilter
+- name: Add conf for containerd
+  blockinfile:
+    path: "/etc/modules-load.d/containerd.conf"
+    block: |
+            overlay
+            br_netfilter
 
-# - name: modprobe
-#   become: yes
-#   shell: |
-#           modprobe overlay
-#           modprobe br_netfilter
+- name: modprobe
+  become: yes
+  shell: |
+          modprobe overlay
+          modprobe br_netfilter
 
 - name: Set system configurations for Kubernetes networking
   file:
@@ -60,19 +60,19 @@
   become: yes
   command: sysctl --system
 
-# - name: Install containerd
-#   apt:
-#     name: 
-#       - containerd
-#     state: present
+- name: Install containerd
+  apt:
+    name: 
+      - containerd
+    state: present
 
-# - name: Create containerd config directory
-#   file: 
-#     path=/etc/containerd 
-#     state=directory
+- name: Create containerd config directory
+  file: 
+    path=/etc/containerd 
+    state=directory
 
-# - name: Install containerd
-#   become: yes
-#   shell: |
-#           containerd config default | sudo tee /etc/containerd/config.toml
-#           systemctl restart containerd
+- name: Install containerd
+  become: yes
+  shell: |
+          containerd config default | sudo tee /etc/containerd/config.toml
+          systemctl restart containerd

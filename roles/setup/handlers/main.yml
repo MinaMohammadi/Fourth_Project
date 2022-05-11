@@ -13,4 +13,3 @@
     state: started
     enabled: true
     daemon_reload: true
-

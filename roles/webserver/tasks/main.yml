@@ -26,5 +26,8 @@
     group: root
     mode: 0644
 
-# - name: Setup webserver
-#   import_tasks: docker.yml
+- name: Setup webserver
+  import_tasks: docker.yml
+
+- name: Setup loadbalancer
+  import_tasks: loadbalancer.yml

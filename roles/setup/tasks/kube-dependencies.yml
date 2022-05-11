@@ -40,25 +40,19 @@
     block: |
           deb https://apt.kubernetes.io/ kubernetes-xenial main
 
-# - name: Add Kubernetes'apt repository
-#   apt_repository:
-#     repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
-#     state: present
-#     filename: 'kubernetes'
-
 - name: install kubelet
   apt:
-    name: kubelet=1.22.4-00
+    name: kubelet=kubelet_version
     state: present
     update_cache: true
 
 - name: install kubeadm
   apt:
-    name: kubeadm=1.22.4-00
+    name: kubeadm=kubeadm_version
     state: present
 
 - name: install kubectl
   apt:
-    name: kubectl=1.22.4-00
+    name: kubectl=kubectl_version
     state: present
     force: yes
