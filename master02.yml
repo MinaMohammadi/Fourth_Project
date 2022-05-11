@@ -1,6 +1,0 @@
----
-- hosts: master02
-  become: True
-  roles:
-    - setup
-    - master02

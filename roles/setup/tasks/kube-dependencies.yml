@@ -9,16 +9,20 @@
     dest: "/etc/docker/daemon.json"
     content: |
       {
-      "insecure-registries": ["{{ docker_registry }}:5000"]
+      "exec-opts": ["native.cgroupdriver=systemd"]
       }
 
 - name: Install Docker
   apt:
     name: 
       - docker.io
-      - apt-transport-https
     state: present
     update_cache: true
+
+- name: Install APT Transport HTTPS
+  apt:
+    name: apt-transport-https
+    state: present
 
 - name: Add Kubernetes apt-key
   apt_key:

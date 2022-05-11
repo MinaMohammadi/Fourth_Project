@@ -10,7 +10,7 @@ network:
       dhcp4: no
       addresses:
         - {{ ansible_eth0.ipv4.address }}/24
-      gateway4: {{loadbalancer}}
+      gateway4: {{ master01_ip }}
       match:
         macaddress: {{ ansible_eth0["macaddress"] }}
       nameservers:

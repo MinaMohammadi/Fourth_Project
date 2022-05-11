@@ -1,5 +1,5 @@
 *nat
--I POSTROUTING -p tcp -d 192.168.100.0/24 -j SNAT --to-source {{ loadbalancer }}
+-I POSTROUTING -p tcp -d 192.168.100.0/24 -j SNAT --to-source {{ master01_ip }}
 -A POSTROUTING -o eth0 -j MASQUERADE
 COMMIT
 
