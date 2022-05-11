@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  namespace: kafka
+  labels:
+    app: zookeeper-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper-server
+  template:
+    metadata:
+      labels:
+        app: zookeeper-server
+    spec:
+      containers:
+        - image: zookeeper:3.8
+          imagePullPolicy: IfNotPresent
+          name: zookeeper
+          ports:
+          - containerPort: 2181
+          volumeMounts:
+            - name: zookeeper-data
+              mountPath: /home/ubuntu/data/zookeeper/
+      volumes:
+        - name: zookeeper-data
+          persistentVolumeClaim:
+            claimName: pvc-zookeeper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-service
+  namespace: kafka
+  labels:
+    app: zookeeper-service
+spec:
+  selector:
+    app: zookeeper
+  type: NodePort
+  ports:
+    - name: zookeeper-port
+      port: 2181
+      nodePort: 32181
+      targetPort: 2181

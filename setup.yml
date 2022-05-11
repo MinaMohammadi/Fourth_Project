@@ -1,0 +1,5 @@
+---
+- hosts: worker03
+  become: True
+  roles:
+    - setup
