@@ -15,7 +15,7 @@ network:
     eth1:
       dhcp4: no
       addresses:
-        - {{ loadbalancer }}/24
+        - {{ loadbalancer01_ip }}/24
       match:
         macaddress: {{ ansible_eth1["macaddress"] }}
       mtu: 1442

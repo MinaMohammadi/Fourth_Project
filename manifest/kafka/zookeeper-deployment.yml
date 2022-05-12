@@ -18,15 +18,15 @@ spec:
     spec:
       containers:
       - env:
-        - name: ZOOKEEPER_CLIENT_PORT
+        - name: ZOO_PORT_NUMBER
           value: "2181"
-        - name: ZOOKEEPER_DATA_DIR
-          value: "/var/lib/zookeeper/data"
-        - name: ZOOKEEPER_LOG_DIR
-          value: "/var/lib/zookeeper/log"
-        - name: ZOOKEEPER_SERVER_ID
+        - name: ZOO_LOG_LEVEL
+          value: "ERROR"
+        - name: ZOO_ENABLE_PROMETHEUS_METRICS
+          value: "yes"
+        - name: ZOO_SERVER_ID
           value: "1"
-        image: zookeeper:3.8
+        image: bitnami/zookeeper:3.7.1
         name: zookeeper
         imagePullPolicy: IfNotPresent
         ports:

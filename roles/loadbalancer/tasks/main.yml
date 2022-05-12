@@ -1,0 +1,33 @@
+---
+- name: Install Requirements
+  apt:
+    name:
+      - resolvconf
+    update_cache: yes
+
+- name: Add DNS Addresses
+  blockinfile:
+    path: /etc/resolvconf/resolv.conf.d/head
+    block: |
+      nameserver 1.1.1.1
+      nameserver 8.8.8.8
+      nameserver 3.3.3.3
+      nameserver 4.2.2.4
+  notify: restart resolvconf
+
+- name: Iptables Hardening
+  import_tasks: iptables.yml
+
+- name: Copy hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+
+# - name: Setup webserver
+#   import_tasks: docker.yml
+
+# - name: Setup loadbalancer
+#   import_tasks: loadbalancer.yml

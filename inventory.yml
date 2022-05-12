@@ -1,12 +1,16 @@
 ---
-webserver:
-  hosts: 94.101.185.219
-lb_ha:
-  hosts: lb
+loadbalancer:
+  hosts: 94.101.186.35
+lb_node01:
+  hosts: lb01
+lb_node02:
+  hosts: lb02
 master_node01:
   hosts: master01
 master_node02:
-  hosts: master02 
+  hosts: master02
+master_node03:
+  hosts: master03
 worker01:
   hosts: slave01
 worker02:

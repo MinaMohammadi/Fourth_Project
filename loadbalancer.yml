@@ -1,5 +1,5 @@
 ---
-- hosts: webserver
+- hosts: loadbalancer
   become: True
   roles:
     - webserver
