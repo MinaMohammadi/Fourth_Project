@@ -6,8 +6,5 @@ resources:
   - kafka-deployment.yml
 
 commonLabels:
-<<<<<<< HEAD
   env: kafka
-=======
-  env: kafka
->>>>>>> 91d38edc800fe2ae28845195d507879f4b5d90a5
+

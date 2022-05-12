@@ -5,6 +5,7 @@ metadata:
   name: pvc-zookeeper
 spec:
   volumeName: pv-zookeeper
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
@@ -17,6 +18,7 @@ metadata:
   name: pvc-kafka
 spec:
   volumeName: pv-kafka
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

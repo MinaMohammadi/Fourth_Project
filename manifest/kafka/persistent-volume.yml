@@ -39,8 +39,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-<<<<<<< HEAD
           - worker-01
-=======
-          - worker-01
->>>>>>> 91d38edc800fe2ae28845195d507879f4b5d90a5

@@ -17,7 +17,7 @@
 - name: Copy all config files
   template:
     src: "{{ item }}"
-    dest: "{{ work_dir }}/nginx/conf.d/{{ item | basename }}"
+    dest: "/home/ubuntu/nginx/conf.d/{{ item | basename }}"
   with_fileglob:
     - "{{role_path}}/templates/docker/nginx/conf.d/*"
   notify: nginx restart
@@ -32,3 +32,4 @@
       - 80:80
       - 8080:8080
     restart_policy: "unless-stopped"
+

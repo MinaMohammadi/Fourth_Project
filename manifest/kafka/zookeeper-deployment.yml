@@ -17,25 +17,25 @@ spec:
         app: zookeeper
     spec:
       containers:
-        - image: zookeeper:3.8
-          name: zookeeper
-          imagePullPolicy: IfNotPresent
       - env:
-          - name: ZOOKEEPER_CLIENT_PORT
-            value: "2181"
-          - name: ZOOKEEPER_DATA_DIR
-            value: "/var/lib/zookeeper/data"
-          - name: ZOOKEEPER_LOG_DIR
-             value: "/var/lib/zookeeper/log"
-          - name: ZOOKEEPER_SERVER_ID
-            value: "1"
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "2181"
+        - name: ZOOKEEPER_DATA_DIR
+          value: "/var/lib/zookeeper/data"
+        - name: ZOOKEEPER_LOG_DIR
+          value: "/var/lib/zookeeper/log"
+        - name: ZOOKEEPER_SERVER_ID
+          value: "1"
+        image: zookeeper:3.8
+        name: zookeeper
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+          - name: zookeeper-data
+            mountPath: /home/ubuntu/data/zookeeper/
       hostname: zookeeper
       restartPolicy: Always
-          ports:
-          - containerPort: 2181
-          volumeMounts:
-            - name: zookeeper-data
-              mountPath: /home/ubuntu/data/zookeeper/
       volumes:
         - name: zookeeper-data
           persistentVolumeClaim:
@@ -45,10 +45,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zookeeper-service
+  name: zookeeper
   namespace: kafka
   labels:
-    app: zookeeper-service
+    app: zookeeper
 spec:
   selector:
     app: zookeeper
