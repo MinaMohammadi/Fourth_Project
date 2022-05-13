@@ -1,5 +1,5 @@
 ---
-- hosts: "worker03,worker02"
+- hosts: master01
   become: True
   roles:
     - setup

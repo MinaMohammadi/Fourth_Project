@@ -2,7 +2,7 @@
 # ip address
 bukhara_domain_name: "bukhara-chkh.ir"
 
-master01_ip: 192.168.100.106
+master01_ip: 192.168.100.227
 master02_ip: 192.168.100.13
 master03_ip: 192.168.100.31
 node01_ip: 192.168.100.152
