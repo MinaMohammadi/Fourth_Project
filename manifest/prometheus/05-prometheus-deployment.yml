@@ -5,16 +5,16 @@ metadata:
   name: prometheus
   namespace: prometheus
   labels:
-    app: prometheus-server
+    app: prometheus
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus-server
+      app: prometheus
   template:
     metadata:
       labels:
-        app: prometheus-server
+        app: prometheus
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
@@ -58,16 +58,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus-service
+  name: prometheus
   namespace: prometheus
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/port:   '9090'
 spec:
   selector: 
-    app: prometheus-server
+    app: prometheus
   type: NodePort  
   ports:
-    - port: 9090
+    - name: prometheus-port
+      port: 9090
       targetPort: 9090 
       nodePort: 30000
