@@ -9,7 +9,7 @@
 
 - name: Create directories in host for config files
   file:
-    name: "{{ work_dir }}/{{ item }}"
+    name: "/home/ubuntu/{{ item }}"
     state: directory
   loop:
     - nginx/conf.d

@@ -1,27 +1,50 @@
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: pvc-zookeeper
+  name: pv-zookeeper
+  labels:
+    type: local
 spec:
-  volumeName: pv-zookeeper
-  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /home/ubuntu/data/zookeeper/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - worker01
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: pvc-kafka
+  name: pv-kafka
+  labels:
+    type: local
 spec:
-  volumeName: pv-kafka
-  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-      
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  hostPath:
+    path: /home/ubuntu/data/kafka/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - worker01

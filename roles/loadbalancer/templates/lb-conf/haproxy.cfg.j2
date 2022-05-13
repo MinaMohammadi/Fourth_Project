@@ -45,3 +45,4 @@ backend kubernetes-backend
     balance roundrobin
     server kmaster1 {{ master01_ip }}:6443 check fall 3 rise 2
     server kmaster2 {{ master02_ip }}:6443 check fall 3 rise 2
+    server kmaster3 {{ master03_ip }}:6443 check fall 3 rise 2

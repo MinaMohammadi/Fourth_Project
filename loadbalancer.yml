@@ -2,4 +2,4 @@
 - hosts: loadbalancer
   become: True
   roles:
-    - webserver
+    - loadbalancer
