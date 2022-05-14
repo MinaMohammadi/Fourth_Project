@@ -26,6 +26,8 @@ spec:
           value: "yes"
         - name: ZOO_SERVER_ID
           value: "1"
+        - name: ALLOW_ANONYMOUS_LOGIN
+          value: "yes" 
         image: bitnami/zookeeper:3.7.1
         name: zookeeper
         imagePullPolicy: IfNotPresent

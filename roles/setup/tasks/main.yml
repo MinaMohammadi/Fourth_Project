@@ -1,4 +1,20 @@
 ---
+- name: Install Requirements
+  apt:
+    name:
+      - resolvconf
+    update_cache: yes
+
+- name: Add DNS Addresses
+  blockinfile:
+    path: /etc/resolvconf/resolv.conf.d/head
+    block: |
+      nameserver 1.1.1.1
+      nameserver 8.8.8.8
+      nameserver 3.3.3.3
+      nameserver 4.2.2.4
+  notify: restart resolvconf
+  
 - name: Iptables Hardening
   import_tasks: iptables.yml
   

@@ -40,7 +40,6 @@ spec:
           volumeMounts:
             - name: prometheus-config
               mountPath: /etc/prometheus/
-              
             - name: data
               mountPath: /home/ubuntu/data/prometheus/
       restartPolicy: Always

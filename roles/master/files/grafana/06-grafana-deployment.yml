@@ -8,16 +8,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grafana-server
+      app: grafana
   template:
     metadata:
-      name: grafana-server
+      name: grafana
       labels:
-        app: grafana-server
+        app: grafana
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:8.5.2
+        image: grafana/grafana:8.5.0
         imagePullPolicy: IfNotPresent
         env:
           - name: SECRET_USERNAME 
@@ -41,60 +41,33 @@ spec:
           requests: 
             memory: 500M
             cpu: "500m"
-        
         volumeMounts:
           - name: grafana-ini
-            mountPath: /etc/grafana/
+            mountPath: /etc/grafana
             # subPath: grafana.ini
-          
           - name: grafana-datasources
-            mountPath: /etc/grafana/provisioning/datasources/
+            mountPath: /etc/grafana/provisioning/datasources
             # subPath: prometheus.yml
-          
           - name: grafana-dashboard-providers
-            mountPath: /etc/grafana/provisioning/dashboards/
+            mountPath: /etc/grafana/provisioning/dashboards
             # subPath: dashboardproviders.yml
-          
           - name: grafana-dashboards
-            mountPath: "/var/lib/grafana/dashboards"
-          
+            mountPath: /var/lib/grafana/dashboards
           - name: data
-            mountPath: /home/ubuntu/data/grafana/
-
-        livenessProbe:
-          httpGet:
-            path: /api/health
-            port: 3000
-        readinessProbe:
-          httpGet:
-            path: /api/health
-            port: 3000
-          initialDelaySeconds: 60
-          timeoutSeconds: 30
-          failureThreshold: 10
-          periodSeconds: 10  
-
+            mountPath: /home/ubuntu/data/grafana
       volumes:
         - name: grafana-ini
           configMap:
-            defaultMode: 420
             name: grafana-ini
-        
         - name: grafana-datasources
           configMap:
-            defaultMode: 420
             name: grafana-datasources
-
         - name: grafana-dashboard-providers
           configMap:
-            defaultMode: 420
             name: grafana-dashboard-providers
-        
         - name: grafana-dashboards
           configMap:
-            defaultMode: 420
-            name: grafana-dashboards
-
+            name: grafana-dashboards 
         - name: data
           persistentVolumeClaim:
             claimName: pvc-grafana
@@ -102,14 +75,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: grafana-service
+  name: grafana
   namespace: prometheus
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/port:   '3000'
 spec:
   selector: 
-    app: grafana-server
+    app: grafana
   type: NodePort  
   ports:
     - port: 3000

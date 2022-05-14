@@ -1,5 +1,0 @@
----
-- hosts: master01
-  become: True
-  roles:
-    - master01

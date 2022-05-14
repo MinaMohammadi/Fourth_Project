@@ -18,13 +18,13 @@
 # - name: Iptables Hardening
 #   import_tasks: iptables.yml
 
-- name: Copy hosts file
-  template:
-    src: hosts.j2
-    dest: /etc/hosts
-    owner: root
-    group: root
-    mode: 0644
+# - name: Copy hosts file
+#   template:
+#     src: hosts.j2
+#     dest: /etc/hosts
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: Setup webserver
   import_tasks: docker.yml

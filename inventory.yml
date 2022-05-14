@@ -1,6 +1,6 @@
 ---
 loadbalancer:
-  hosts: 94.101.186.35
+  hosts: 94.101.186.102
 lb_node01:
   hosts: lb01
 lb_node02:
