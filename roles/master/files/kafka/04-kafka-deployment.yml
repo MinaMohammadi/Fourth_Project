@@ -29,14 +29,14 @@ spec:
           value: "zookeeper:2181"
         - name: ALLOW_PLAINTEXT_LISTENER
           value: "yes"
-        image: bitnami/kafka:3.0.1
+        image: bitnami/kafka
         imagePullPolicy: IfNotPresent
         name: kafka
         ports:
         - containerPort: 9092
         volumeMounts:
           - name: kafka-data
-            mountPath: /home/ubuntu/data/kafka/
+            mountPath: /bitnami/kafka
       volumes:
         - name: kafka-data
           persistentVolumeClaim:

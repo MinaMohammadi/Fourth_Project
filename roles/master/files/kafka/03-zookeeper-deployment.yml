@@ -35,7 +35,7 @@ spec:
         - containerPort: 2181
         volumeMounts:
           - name: zookeeper-data
-            mountPath: /home/ubuntu/data/zookeeper/
+            mountPath: /bitnami/zookeeper
       hostname: zookeeper
       restartPolicy: Always
       volumes:

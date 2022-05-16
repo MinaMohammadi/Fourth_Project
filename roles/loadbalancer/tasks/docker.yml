@@ -32,4 +32,3 @@
       - 80:80
       - 8080:8080
     restart_policy: "unless-stopped"
-

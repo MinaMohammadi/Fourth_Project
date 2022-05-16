@@ -38,7 +38,12 @@ data:
                 "orgId": 1,
                 "type": "prometheus",
                 "url": "http://prometheus.prometheus.svc:9090",
-                "version": 1
+                "basicAuth": true,
+                "basicAuthUser": "admin",
+                "secureJsonData": {
+                  "basicAuthPassword": "password"
+                },
+                "isDefault": "true"
             }
         ]
     }

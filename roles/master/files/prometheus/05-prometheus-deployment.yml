@@ -41,7 +41,7 @@ spec:
             - name: prometheus-config
               mountPath: /etc/prometheus/
             - name: data
-              mountPath: /home/ubuntu/data/prometheus/
+              mountPath: "/prometheus/data"
       restartPolicy: Always
       terminationGracePeriodSeconds: 60
       volumes:

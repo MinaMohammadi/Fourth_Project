@@ -8,17 +8,18 @@
 #     mode: 0760
 #   become: true
 
-# - name: copying file with playbook
-#   copy:
-#     src: "{{ item }}"
-#     dest: "/home/ubuntu/manifest/kafka"
-#     mode: 0760
-#   loop:
-#     - kafka/00-namespace.yml
-#     - kafka/01-persistent-volume.yml
-#     - kafka/02-persistent-volume-claim.yml
-#     - kafka/03-zookeeper-deployment.yml
-#     - kafka/04-kafka-deployment.yml
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/kafka"
+    mode: 0760
+  loop:
+    - kafka/00-namespace.yml
+    - kafka/01-persistent-volume.yml
+    - kafka/02-persistent-volume-claim.yml
+    - kafka/03-zookeeper-deployment.yml
+    - kafka/04-kafka-deployment.yml
+    - kafka/05-kafka-producer.yml
 
 # - name: Create manifest directory
 #   file:
@@ -41,6 +42,7 @@
 #     - prometheus/03-persistent-volume.yml
 #     - prometheus/04-persistent-volume-claim.yml
 #     - prometheus/05-prometheus-deployment.yml
+#     - prometheus/06-ingress-resource.yml
 
 # - name: Create manifest directory
 #   file:
@@ -79,26 +81,42 @@
 #     - kubernetes-node-exporter/00-daemonset.yml
 #     - kubernetes-node-exporter/01-service.yml
 
-- name: Create manifest directory
-  file:
-    path: "/home/ubuntu/manifest/grafana"
-    state: "directory"
-    owner: ubuntu
-    group: ubuntu
-    mode: 0760
-  become: true
+# - name: Create manifest directory
+#   file:
+#     path: "/home/ubuntu/manifest/grafana"
+#     state: "directory"
+#     owner: ubuntu
+#     group: ubuntu
+#     mode: 0760
+#   become: true
 
-- name: copying file with playbook
-  copy:
-    src: "{{ item }}"
-    dest: "/home/ubuntu/manifest/grafana"
-    mode: 0760
-  loop:
-    - grafana/00-grafana-serviceaccount.yml
-    - grafana/01-grafana-configmap.yml
-    - grafana/02-dashboards-configmap.yaml
-    - grafana/03-grafana-secret.yml
-    - grafana/04-persistent-volume.yml
-    - grafana/05-persistent-volume-claim.yml
-    - grafana/06-grafana-deployment.yml
-    - grafana/07-plugins.yml
+# - name: copying file with playbook
+#   copy:
+#     src: "{{ item }}"
+#     dest: "/home/ubuntu/manifest/grafana"
+#     mode: 0760
+#   loop:
+#     - grafana/00-grafana-serviceaccount.yml
+#     - grafana/01-grafana-configmap.yml
+#     - grafana/02-dashboards-configmap.yaml
+#     - grafana/03-grafana-secret.yml
+#     - grafana/04-persistent-volume.yml
+#     - grafana/05-persistent-volume-claim.yml
+#     - grafana/06-grafana-deployment.yml
+
+# - name: Create manifest directory
+#   file:
+#     path: "/home/ubuntu/manifest/kafka-exporter"
+#     state: "directory"
+#     owner: ubuntu
+#     group: ubuntu
+#     mode: 0760
+#   become: true
+
+# - name: copying file with playbook
+#   copy:
+#     src: "{{ item }}"
+#     dest: "/home/ubuntu/manifest/kafka-exporter"
+#     mode: 0760
+#   loop:
+#     - kafka-exporter/deployment.yml

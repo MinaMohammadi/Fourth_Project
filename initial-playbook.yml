@@ -1,0 +1,29 @@
+---
+- name: gateway startup
+  hosts: gateway_pub
+  become: yes
+  tasks:
+    - name: Install required packages
+      apt:
+        name:
+          - software-properties-common
+          - git
+        update_cache: yes
+
+    - name: Add ansible repo
+      apt_repository:
+        repo: "ppa:ansible/ansible"
+        state: present
+
+    - name: Install ansible
+      apt:
+        name: ansible
+        update_cache: yes
+
+    - name: Clone ansible git repositorty
+      git:
+        repo: https://github.com/MinaMohammadi/K8S.git
+        dest: /home/ubuntu/ansible
+        clone: yes
+        update: yes
+      become: no
