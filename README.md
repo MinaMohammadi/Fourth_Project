@@ -207,8 +207,10 @@ Use the respective kubeadm join commands you copied from the output of kubeadm i
 
 ### Verifying the cluster
 
+```
 kubectl cluster-info
 kubectl get nodes
+```
 
 ***
 
