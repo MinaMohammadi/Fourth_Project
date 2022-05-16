@@ -25,3 +25,5 @@ The YAML can be directly applied to a cluster:
 ```
 kustomize build ~/someApp | kubectl apply -f -
 ```
+For more information:
+* [Kustomization:](https://github.com/kubernetes-sigs/kustomize)
