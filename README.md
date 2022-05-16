@@ -9,13 +9,6 @@ When you deploy Kubernetes, you get a cluster. A Kubernetes cluster consists of 
 
 The control plane manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability.
 
-### Control Plane Components 
-The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new pod when a deployment's replicas field is unsatisfied).
- 
-01) kube-apiserver -> The API server is a component of the Kubernetes control plane that exposes the Kubernetes API.
-02) etcd -> Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
-03) kube-scheduler -> Control plane component that watches for newly created Pods with no assigned node, and selects a node for them to run on.
-04) kube-controller-manager -> Some types of these controllers are: Node controller, Job controller, Endpoints controller and Service Account & Token controllers.
 
 ***
 
@@ -23,8 +16,6 @@ The control plane's components make global decisions about the cluster (for exam
 Follow this documentation to set up a highly available Kubernetes cluster using Ubuntu 20.04 LTS with keepalived and haproxy
 
 This documentation guides you in setting up a cluster with three master nodes, tress worker nodes and two load balancer node using HAProxy and Keepalived.
-
-***
 
 
 ## Set up load balancer nodes (loadbalancer1 & loadbalancer2)
@@ -115,9 +106,9 @@ backend kubernetes-backend
   mode tcp
   option ssl-hello-chk
   balance roundrobin
-    server kmaster1 172.16.16.101:6443 check fall 3 rise 2
-    server kmaster2 172.16.16.102:6443 check fall 3 rise 2
-    server kmaster3 172.16.16.103:6443 check fall 3 rise 2
+    server master01 172.16.16.101:6443 check fall 3 rise 2
+    server master02 172.16.16.102:6443 check fall 3 rise 2
+    server master03 172.16.16.103:6443 check fall 3 rise 2
 
 EOF
 ```
@@ -130,7 +121,94 @@ systemctl enable haproxy && systemctl restart haproxy
 
 ## Pre-requisites on all kubernetes nodes (masters & workers)
 
+Disable swap:
 
+```
+swapoff -a; sed -i '/swap/d' /etc/fstab
+```
+systemctl disable --now ufw:
 
+``` 
+systemctl disable --now ufw
+```
+Enable and Load Kernel modules:
 
- 
+```
+{
+cat >> /etc/modules-load.d/containerd.conf <<EOF
+overlay
+br_netfilter
+EOF
+
+modprobe overlay
+modprobe br_netfilter
+}
+```
+Add Kernel settings:
+
+```
+{
+cat >>/etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sysctl --system
+}
+```
+Install containerd runtime:
+
+```
+{
+  apt update
+  apt install -y containerd apt-transport-https
+  mkdir /etc/containerd
+  containerd config default > /etc/containerd/config.toml
+  systemctl restart containerd
+  systemctl enable containerd
+}
+```
+Add apt repo for kubernetes:
+
+```
+{
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+}
+```
+Install Kubernetes components:
+
+```
+{
+  apt update
+  apt install -y kubeadm=1.22.0-00 kubelet=1.22.0-00 kubectl=1.22.0-00
+}
+```
+
+## Bootstrap the cluster
+
+### On master01
+Initialize Kubernetes Cluster:
+
+```
+kubeadm init --control-plane-endpoint="172.16.16.100:6443" --upload-certs --pod-network-cidr=192.168.0.0/16
+```
+Copy the commands to join other master nodes and worker nodes.
+
+Deploy Flannel network:
+
+```
+kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+### Join other master/worker nodes to the cluster
+
+Use the respective kubeadm join commands you copied from the output of kubeadm init command on the first master.
+
+### Verifying the cluster
+
+kubectl cluster-info
+kubectl get nodes
+
+***
+
