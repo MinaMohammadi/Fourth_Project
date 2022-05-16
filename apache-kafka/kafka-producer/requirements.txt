@@ -1,0 +1,4 @@
+Faker
+kafka-python
+python-dateutil
+text-unidecode
