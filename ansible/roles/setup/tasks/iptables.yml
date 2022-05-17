@@ -1,0 +1,28 @@
+---
+- name: Copy netplan Config File
+  template:
+    src: netplan/50-cloud-init.yaml.j2
+    dest: /etc/netplan/50-cloud-init.yaml
+    owner: root
+    group: root
+    mode: 0744
+  notify: apply netplan
+
+- name: Force for apply netplan
+  meta: flush_handlers 
+  
+- name: Install iptables-persistent package
+  apt:
+    name: iptables-persistent
+    update_cache: yes
+
+- name: Copy iptables template rules to /etc/iptables
+  template:
+    src: iptables/rules.v4.j2
+    dest: /etc/iptables/rules.v4
+
+
+- name: Install iptables-persistent package
+  apt:
+    name: iptables-persistent
+    update_cache: yes
