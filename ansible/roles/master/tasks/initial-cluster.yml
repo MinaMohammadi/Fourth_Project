@@ -1,0 +1,36 @@
+---
+- name: Initialize the cluster
+  become: true
+  shell: 
+      kubeadm init --control-plane-endpoint="{{ loadbalancer01_ip }}:6443" --upload-certs \ 
+      --pod-network-cidr=10.244.0.0/16 
+  register: init_output
+  args:
+    chdir: $HOME
+    creates: cluster_initialized.txt
+
+- name: Print the initialization output
+  debug: msg="{{ init_output }}"
+
+- name: Create .kube directory
+  become: true
+  become_user: ubuntu
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/.kube/config
+    remote_src: yes
+    owner: ubuntu
+
+- name: Install Pod network
+  become: true
+  become_user: ubuntu
+  shell: kubectl apply -f "{{ kubernetes_flannel_url }}"
+  args:
+    chdir: $HOME
+    creates: pod_network_setup.txt
