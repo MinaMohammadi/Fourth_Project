@@ -1,4 +1,7 @@
 ---
+- name: Iptables Hardening
+  import_tasks: iptables.yml
+  
 - name: Install Requirements
   apt:
     name:
@@ -15,9 +18,6 @@
       nameserver 4.2.2.4
       nameserver 178.22.122.100
   notify: restart resolvconf
-
-- name: Iptables Hardening
-  import_tasks: iptables.yml
   
 - name: Preinstallation
   import_tasks: preinstallation.yml
