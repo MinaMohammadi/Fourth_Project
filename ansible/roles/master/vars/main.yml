@@ -1,0 +1,4 @@
+---
+#kubernetes info
+kubernetes_flannel_url: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+pod_network: 10.244.0.0
