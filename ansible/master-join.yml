@@ -1,0 +1,16 @@
+---
+- name: Master nodes join to cluster
+  hosts: master02
+  become: yes
+  tasks:
+    - name: Copy join command from Ansiblehost to the Master node
+      become: true
+      copy:
+        src: /tmp/kubernetes_master_join
+        dest: /tmp/kubernetes_master_join.sh
+        mode: 0777
+
+    - name: Join the Master node to the cluster
+      become: true
+      command: sh /tmp/kubernetes_master_join.sh
+      register: joined_or_not
