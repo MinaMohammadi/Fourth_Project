@@ -1,0 +1,10 @@
+*nat
+-I POSTROUTING -p tcp -d 192.168.100.0/24 -j SNAT --to-source {{ loadbalancer01_ip }}
+-A POSTROUTING -o eth0 -j MASQUERADE
+COMMIT
+
+*filter
+-A FORWARD -i eth1 -o eth0 -j ACCEPT
+-A FORWARD -i eth1 -o eth0 -p tcp -m tcp --dport 80 --tcp-flags FIN,SYN,RST,ACK SYN -m conntrack --ctstate NEW -j ACCEPT
+-A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+COMMIT
