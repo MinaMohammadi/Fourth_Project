@@ -1,0 +1,12 @@
+resources:
+  - 00-grafana-serviceaccount.yml
+  - 01-grafana-configmap.yml
+  - 02-dashboards-configmap.yaml 
+  - 03-grafana-secret.yml
+  - 04-persistent-volume.yml
+  - 05-persistent-volume-claim.yml
+  - 06-grafana-deployment.yml
+
+commonLabels:
+  env: kafka
+
