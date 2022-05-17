@@ -1,6 +1,0 @@
----
-domain_name: "{{ bukhara_domain_name }}"
-
-kubernetes_addr: "https://{{ master02_ip }}:32323/"
-grafana_addr: "http://{{ master02_ip }}:32000/"
-prometheus_addr: "http://{{ master02_ip }}:30000/"
