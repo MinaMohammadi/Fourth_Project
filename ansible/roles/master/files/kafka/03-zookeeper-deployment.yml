@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  namespace: kafka
+  labels:
+    app: zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - env:
+        - name: ZOO_PORT_NUMBER
+          value: "2181"
+        - name: ZOO_LOG_LEVEL
+          value: "ERROR"
+        - name: ZOO_ENABLE_PROMETHEUS_METRICS
+          value: "yes"
+        - name: ZOO_SERVER_ID
+          value: "1"
+        - name: ALLOW_ANONYMOUS_LOGIN
+          value: "yes" 
+        image: bitnami/zookeeper:3.7.1
+        name: zookeeper
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+          - name: zookeeper-data
+            mountPath: /bitnami/zookeeper
+      hostname: zookeeper
+      restartPolicy: Always
+      volumes:
+        - name: zookeeper-data
+          persistentVolumeClaim:
+            claimName: pvc-zookeeper
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  namespace: kafka
+  labels:
+    app: zookeeper
+spec:
+  selector:
+    app: zookeeper
+  type: NodePort
+  ports:
+    - name: zookeeper-port
+      port: 2181
+      nodePort: 32181
+      targetPort: 2181
