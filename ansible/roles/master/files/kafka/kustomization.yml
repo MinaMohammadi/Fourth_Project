@@ -1,0 +1,12 @@
+resources:
+  - 00-namespace.yml
+  - 01-persistent-volume.yml
+  - 02-persistent-volume-claim.yml 
+  - 03-zookeeper-deployment.yml
+  - 04-kafka-deployment.yml
+  - 05-kafka-producer.yml
+  - 06-kafka-consumer.yml
+
+commonLabels:
+  env: kafka
+
