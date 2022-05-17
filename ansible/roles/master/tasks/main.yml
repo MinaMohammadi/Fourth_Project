@@ -1,12 +1,6 @@
 ---
 - name: Initialize kubernetes cluster
-  import_tasks: kubeadm-init.yml
-
-- name: Join workers to kubernetes cluster
-  import_tasks: kubeadm-worker-join.yml
-
-- name: Join masters to kubernetes cluster
-  import_tasks: kubeadm-master-join.yml
-
+  import_tasks: initial-cluster.yml
+  
 - name: Apply kafka manifest to cluster
   import_tasks: manifest.yml
