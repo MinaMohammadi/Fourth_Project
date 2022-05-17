@@ -1,0 +1,113 @@
+---
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/kafka"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
+
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/kafka"
+    mode: 0760
+  loop:
+    - kafka/00-namespace.yml
+    - kafka/01-persistent-volume.yml
+    - kafka/02-persistent-volume-claim.yml
+    - kafka/03-zookeeper-deployment.yml
+    - kafka/04-kafka-deployment.yml
+    - kafka/05-kafka-producer.yml
+    - kafka/06-kafka-consumer.yml
+    - kafka/07-kafka-exporter.yml
+    - kafka/kustomization.yml
+
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/prometheus"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
+
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/prometheus"
+    mode: 0760
+  loop:
+    - prometheus/00-namespace.yml
+    - prometheus/01-configmap.yml
+    - prometheus/02-clusterRole.yaml
+    - prometheus/03-persistent-volume.yml
+    - prometheus/04-persistent-volume-claim.yml
+    - prometheus/05-prometheus-deployment.yml
+    - prometheus/06-ingress-resource.yml
+    - prometheus/kustomization.yml
+
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/kube-state-metrics"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
+
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/kube-state-metrics"
+    mode: 0760
+  loop:
+    - kube-state-metrics/00-serviceaccount.yml
+    - kube-state-metrics/01-deployment.yml
+    - kube-state-metrics/02-service.yml
+
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/kubernetes-node-exporter"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
+
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/kubernetes-node-exporter"
+    mode: 0760
+  loop:
+    - kubernetes-node-exporter/00-daemonset.yml
+    - kubernetes-node-exporter/01-service.yml
+
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/grafana"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
+
+- name: copying file with playbook
+  copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/manifest/grafana"
+    mode: 0760
+  loop:
+    - grafana/00-grafana-serviceaccount.yml
+    - grafana/01-grafana-configmap.yml
+    - grafana/02-dashboards-configmap.yaml
+    - grafana/03-grafana-secret.yml
+    - grafana/04-persistent-volume.yml
+    - grafana/05-persistent-volume-claim.yml
+    - grafana/06-grafana-deployment.yml
+    - grafana/kustomization.yml
+
+- name: Create manifest directory
+  file:
+    path: "/home/ubuntu/manifest/kafka-exporter"
+    state: "directory"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0760
