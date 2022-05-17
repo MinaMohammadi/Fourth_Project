@@ -1,0 +1,34 @@
+---
+- name: Install required packages
+  apt:
+    name:
+      - docker
+      - docker.io
+      - python3-docker
+    update_cache: yes
+
+- name: Create directories in host for config files
+  file:
+    name: "/home/ubuntu/{{ item }}"
+    state: directory
+  loop:
+    - nginx/conf.d
+
+- name: Copy all config files
+  template:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/nginx/conf.d/{{ item | basename }}"
+  with_fileglob:
+    - "{{role_path}}/templates/docker/nginx/conf.d/*"
+  notify: nginx restart
+  
+- name: Create a webserver
+  docker_container:
+    name: nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - 80:80
+      - 8080:8080
+    restart_policy: "unless-stopped"
