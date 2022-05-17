@@ -1,6 +1,6 @@
 ---
 - name: Master nodes join to cluster
-  hosts: master02
+  hosts: "master01, master02, master03"
   become: yes
   tasks:
     - name: Copy join command from Ansiblehost to the Master node
