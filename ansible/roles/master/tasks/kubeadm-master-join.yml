@@ -1,0 +1,36 @@
+---
+- name: Create the token for joining the masters nodes
+  become: true
+  become_user: root
+  shell: 
+    kubeadm init phase upload-certs --upload-certs
+  register: kubernetes_master_certs
+
+- name: Show logs
+  debug:
+    msg: "{{ kubernetes_master_certs.stdout }}"
+
+- name: Copy token command to local file
+  become: true
+  local_action: copy
+    content="{{ kubernetes_master_certs.stdout_lines[0] }}" 
+    dest="/tmp/kubernetes_master_certs" 
+    mode=0777
+
+- name: Get the token for joining the masters nodes
+  become: true
+  become_user: root
+  shell: 
+    kubeadm token create  --print-join-command --certificate-key "{{ kubernetes_master_certs }}"
+  register: kubernetes_master_join
+
+- name: Show logs
+  debug:
+    msg: "{{ kubernetes_master_join.stdout }}"
+
+- name: Copy join command to local file
+  become: true
+  local_action: copy
+    content="{{ kubernetes_master_join.stdout_lines[0] }}" 
+    dest="/tmp/kubernetes_master_join" 
+    mode=0777
