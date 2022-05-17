@@ -1,0 +1,32 @@
+---
+- name: Install Docker
+  apt:
+    name: 
+      - docker.io
+      - docker
+    state: present
+    update_cache: true
+
+- name: Install APT Transport HTTPS
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: Add Kubernetes apt-key
+  apt_key:
+    url: "{{ Kubernetes_gpg_key }}"
+    state: present
+
+- name: Add Kubernetes repository
+  apt_repository:
+    repo: "deb {{ kubernetes_repo_url }}"
+    state: present
+
+- name: Install kubelet, kubeadm, kubectl
+  apt:
+    name: 
+      - kubelet={{ kubelet_version }}
+      - kubeadm={{ kubeadm_version }}
+      - kubectl={{ kubectl_version }}
+    state: present
+    update_cache: true
