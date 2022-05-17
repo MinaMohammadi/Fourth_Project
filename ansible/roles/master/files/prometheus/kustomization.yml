@@ -1,0 +1,12 @@
+resources:
+  - 00-namespace.yml
+  - 01-configmap.yml
+  - 02-clusterRole.yaml
+  - 03-persistent-volume.yml
+  - 04-persistent-volume-claim.yml
+  - 05-prometheus-deployment.yml
+  - 06-ingress-resource.yml
+
+commonLabels:
+  env: prometheus
+
