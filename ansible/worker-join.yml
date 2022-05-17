@@ -7,10 +7,10 @@
       become: true
       copy:
         src: /tmp/kubernetes_worker_join
-        dest: /tmp/kubernetes_worker_join
+        dest: /tmp/kubernetes_worker_join.sh
         mode: 0777
 
     - name: Join the Worker nodes to the cluster
       become: true
-      command: sh /tmp/kubernetes_worker_join
+      command: sh /tmp/kubernetes_worker_join.sh
       register: joined_or_not
