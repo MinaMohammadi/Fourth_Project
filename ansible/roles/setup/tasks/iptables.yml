@@ -20,9 +20,3 @@
   template:
     src: iptables/rules.v4.j2
     dest: /etc/iptables/rules.v4
-
-
-- name: Install iptables-persistent package
-  apt:
-    name: iptables-persistent
-    update_cache: yes
