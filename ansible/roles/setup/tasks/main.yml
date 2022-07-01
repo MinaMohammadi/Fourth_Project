@@ -12,10 +12,7 @@
   blockinfile:
     path: /etc/resolvconf/resolv.conf.d/head
     block: |
-      nameserver 1.1.1.1
       nameserver 8.8.8.8
-      nameserver 3.3.3.3
-      nameserver 4.2.2.4
       nameserver 178.22.122.100
   notify: restart resolvconf
   
