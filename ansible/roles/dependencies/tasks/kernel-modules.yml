@@ -1,0 +1,35 @@
+---
+- name: Append modules in kernel
+  blockinfile:
+    path: "/etc/modules-load.d/containerd.conf"
+    block: |
+            overlay
+            br_netfilter
+
+- name: Reload kernel modules
+  become: yes
+  shell: |
+          modprobe overlay
+          modprobe br_netfilter
+
+- name: Create config file for K8S
+  file:
+    state: file
+    path: "/etc/sysctl.d/kubernetes.conf"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Append kernel settings
+  blockinfile:
+    path: "/etc/sysctl.d/kubernetes.conf"
+    block: |
+            net.bridge.bridge-nf-call-ip6tables = 1
+            net.bridge.bridge-nf-call-iptables = 1
+  register: result
+
+- name: Apply new settings
+  become: yes
+  command: sysctl --system
+  when: result.changed
+

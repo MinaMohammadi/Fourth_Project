@@ -1,0 +1,22 @@
+---
+- name: Install containerd and its dependecies
+  apt:
+    name: 
+      - containerd
+      - apt-transport-https
+    state: present
+    update_cache: true
+
+- name: Create containerd config directory
+  file:
+    state: directory
+    path: /etc/containerd 
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add containerd config file
+  become: yes
+  shell: |
+          containerd config default | sudo tee /etc/containerd/config.toml
+  notify: restart containerd

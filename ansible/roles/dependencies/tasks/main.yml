@@ -1,0 +1,12 @@
+---
+- name: Disable swap
+  import_tasks: preinstallation.yml
+
+- name: Add kernel modules
+  import_tasks: kernel-modules.yml
+
+- name: Install container run time
+  import_tasks: CRT.yml
+
+- name: Install kubernetes components
+  import_tasks: kube.yml 

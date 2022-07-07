@@ -1,0 +1,9 @@
+---
+- name: Copy netplan Config File
+  template:
+    src: netplan/50-cloud-init.yaml.j2
+    dest: /etc/netplan/50-cloud-init.yaml
+  notify: apply netplan
+
+- name: Force for run handlers
+  meta: flush_handlers
