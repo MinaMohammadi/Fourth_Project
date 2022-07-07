@@ -20,10 +20,16 @@
         name: ansible
         update_cache: yes
 
+    - name: ssh-keygen
+      openssh_keypair:
+        path: .ssh/id_rsa
+        owner: ubuntu
+
     - name: Clone ansible git repositorty
       git:
         repo: https://github.com/MinaMohammadi/K8S.git
         dest: /home/ubuntu/ansible
         clone: yes
         update: yes
+        force: yes
       become: no
