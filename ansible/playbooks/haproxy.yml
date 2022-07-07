@@ -1,0 +1,7 @@
+---
+- name: Setup HAproxy
+  hosts: lb01
+  become: True
+  roles:
+    - iptables
+    - haproxy

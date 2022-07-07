@@ -1,0 +1,6 @@
+---
+- import_playbook: gateway.yml
+- import_playbook: haproxy.yml
+- import_playbook: nodes.yml 
+- import_playbook:
+- import_playbook:

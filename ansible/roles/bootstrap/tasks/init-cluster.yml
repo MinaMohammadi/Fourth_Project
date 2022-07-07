@@ -1,9 +1,10 @@
 ---
-- name: Initialize the cluster
+- name: Initialize the Kubernetes cluster using kubeadm
   become: true
   shell: 
-      kubeadm init --control-plane-endpoint="{{ loadbalancer01_ip }}:6443" --upload-certs \ 
-      --pod-network-cidr=10.244.0.0/16 
+     kubeadm init --control-plane-endpoint="{{ loadbalancer01_ip }}:6443" \
+     --upload-certs --apiserver-advertise-address={{ master01_ip }} \
+     --pod-network-cidr={{ pod_network }}/16
   register: init_output
   args:
     chdir: $HOME

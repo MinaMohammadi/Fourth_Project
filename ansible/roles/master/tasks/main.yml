@@ -1,6 +1,0 @@
----
-- name: Initialize kubernetes cluster
-  import_tasks: initial-cluster.yml
-  
-- name: Apply kafka manifest to cluster
-  import_tasks: manifest.yml

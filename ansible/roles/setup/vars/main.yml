@@ -1,8 +1,0 @@
----
-#version
-kubelet_version: 1.22.0-00
-kubeadm_version: 1.22.0-00
-kubectl_version: 1.22.0-00
-
-Kubernetes_gpg_key: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-kubernetes_repo_url: "http://apt.kubernetes.io/ kubernetes-xenial main"

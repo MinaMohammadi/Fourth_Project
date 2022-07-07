@@ -9,8 +9,8 @@
   notify: apply netplan
 
 - name: Force for apply netplan
-  meta: flush_handlers 
-  
+  meta: flush_handlers
+
 - name: Install iptables-persistent package
   apt:
     name: iptables-persistent
@@ -20,3 +20,19 @@
   template:
     src: iptables/rules.v4.j2
     dest: /etc/iptables/rules.v4
+  
+- name: Install Requirements
+  apt:
+    name:
+      - resolvconf
+    update_cache: yes
+
+- name: Add DNS Addresses
+  blockinfile:
+    path: /etc/resolvconf/resolv.conf.d/head
+    block: |
+      nameserver 8.8.8.8
+      nameserver 4.2.2.4
+      nameserver 178.22.122.100
+  notify: restart resolvconf
+  

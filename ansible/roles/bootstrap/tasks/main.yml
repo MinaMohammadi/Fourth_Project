@@ -1,0 +1,9 @@
+---
+- name: Initialize kubernetes cluster with kubeadm
+  import_tasks: init-cluster.yml
+
+- name: Add other master nodes to cluster
+  import_tasks: join_master.yml 
+
+- name: Add other worker nodes to cluster
+  import_tasks: join_worker.yml

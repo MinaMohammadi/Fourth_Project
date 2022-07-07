@@ -1,0 +1,7 @@
+---
+- name: Setup gateway and webserver
+  hosts: gateway
+  become: True
+  roles:
+    - gateway
+    - webserver

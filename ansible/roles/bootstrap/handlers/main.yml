@@ -1,0 +1,29 @@
+---
+- name: Generate join command
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Generate certificate-key
+  command: kubeadm init phase upload-certs --upload-certs
+  register: certs
+
+- name: Copy join command to local file
+  local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+
+- name: Copy crts to local file
+  local_action: copy content="{{ join_command.stdout_lines[0] }} --control-plane --certificate-key {{ certs.stdout_lines[2]}}" dest="./crts"
+
+- name: Install calico pod network
+  become: false
+  command: sudo kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.15/manifests/calico.yaml
+
+- name: Join the masters to cluster
+  command: sh /tmp/crts.sh
+
+- name: Join the worker to cluster
+  command: sh /tmp/join-command.sh
+
+- name: restart kubelet
+  service:
+    name: kubelet
+    state: restarted
